@@ -8,7 +8,7 @@ export const getAllUser = async (req: Request, res: Response) => {
             success: true,
             message: 'Users retrieved successfully',
             data: data,
-        })
+        });
     } catch (error) {
         res.status(500).json({
             success: false,
@@ -18,10 +18,30 @@ export const getAllUser = async (req: Request, res: Response) => {
     }
 };
 
+export const getSingleUser = async (req: Request, res: Response) => {
+    try {
+        const id = req.params.id;
+        const data = await User.findOne({ _id: id });
+        res.status(200).json({
+            success: true,
+            message: 'User retrieved successfully',
+            data: data,
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: 'Failed to retrieve user',
+            error,
+        });
+    }
+}
+
 export const registerUser = async (req: Request, res: Response) => {
     try {
         const userInfo = req.body;
         const user = new User(userInfo);
+        const password = await user.hashPassword(userInfo.password);
+        user.password = password;
         await user.save();
         res.status(201).json({
             success: true,

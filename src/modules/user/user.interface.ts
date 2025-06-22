@@ -1,3 +1,5 @@
+import { Model } from "mongoose"
+
 export interface IUser {
     name: string,
     email: string,
@@ -5,3 +7,7 @@ export interface IUser {
     password: string,
     role: "admin" | "customer"
 };
+
+export interface userMethods extends Model<IUser> {
+    hashPassword(password: string): string
+}
