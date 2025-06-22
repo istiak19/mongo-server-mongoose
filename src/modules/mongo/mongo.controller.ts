@@ -1,52 +1,50 @@
 import { Request, Response } from "express";
-import { User } from "./user.model";
+import { Mongo } from "./mongo.model";
 
-export const getAllUser = async (req: Request, res: Response) => {
+export const getAllMongo = async (req: Request, res: Response) => {
     try {
-        const data = await User.find();
+        const data = await Mongo.find();
         res.status(200).json({
             success: true,
-            message: 'Users retrieved successfully',
+            message: "Mango retrieved successfully!",
             data: data,
         });
-    } catch (error) {
+    } catch (error: any) {
         res.status(500).json({
             success: false,
-            message: 'Failed to retrieve users',
+            message: "Failed to retrieve mango",
             error,
         });
     }
 };
 
-export const getSingleUser = async (req: Request, res: Response) => {
+export const getSingleMongo = async (req: Request, res: Response) => {
     try {
         const id = req.params.id;
-        const data = await User.findOne({ _id: id });
+        const data = await Mongo.findOne({ _id: id });
         res.status(200).json({
             success: true,
-            message: 'User retrieved successfully',
+            message: 'Mongo retrieved successfully',
             data: data,
         });
     } catch (error) {
         res.status(500).json({
             success: false,
-            message: 'Failed to retrieve user',
+            message: 'Failed to retrieve mongo',
             error,
         });
     }
 };
 
-export const registerUser = async (req: Request, res: Response) => {
+export const createMongo = async (req: Request, res: Response) => {
     try {
-        const userInfo = req.body;
-        const user = new User(userInfo);
-        const password = await user.hashPassword(userInfo.password);
-        user.password = password;
-        await user.save();
+        const mongoInfo = req.body;
+        const data = new Mongo(mongoInfo);
+        await data.save();
         res.status(201).json({
             success: true,
-            message: "User registered successfully!",
-            data: user,
+            message: "Mango created successfully!",
+            data: data,
         });
     } catch (error: any) {
         if (error.name === "ValidationError") {
@@ -58,44 +56,44 @@ export const registerUser = async (req: Request, res: Response) => {
         }
         res.status(500).json({
             success: false,
-            message: "Failed to register user",
+            message: "Failed to create mango",
             error,
         });
     }
 };
 
-export const updateUser = async (req: Request, res: Response) => {
+export const updateMongo = async (req: Request, res: Response) => {
     try {
         const id = req.params.id;
         const updateInfo = req.body;
-        const data = await User.findOneAndUpdate({ _id: id }, updateInfo, { new: true })
+        const data = await Mongo.findOneAndUpdate({ _id: id }, updateInfo, { new: true, runValidators: true })
         res.status(200).json({
             success: true,
-            message: 'User updated successfully',
+            message: 'Mongo updated successfully',
             data: data,
         });
     } catch (error) {
         res.status(500).json({
             success: false,
-            message: 'Failed to update user',
+            message: 'Failed to update mongo',
             error,
         });
     }
 };
 
-export const deleteUser = async (req: Request, res: Response) => {
+export const deleteMongo = async (req: Request, res: Response) => {
     try {
         const id = req.params.id;
-        const data = await User.deleteOne({ _id: id });
+        const data = await Mongo.deleteOne({ _id: id });
         res.status(200).json({
             success: true,
-            message: "User deleted successfully",
+            message: "Mongo deleted successfully",
             data,
         });
     } catch (error) {
         res.status(500).json({
             success: false,
-            message: "Failed to delete user",
+            message: "Failed to delete Mongo",
             error,
         });
     }
