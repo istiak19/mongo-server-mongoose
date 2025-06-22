@@ -84,7 +84,7 @@ export const updateMongo = async (req: Request, res: Response) => {
 export const deleteMongo = async (req: Request, res: Response) => {
     try {
         const id = req.params.id;
-        const data = await Mongo.deleteOne({ _id: id });
+        const data = await Mongo.findOneAndDelete({ _id: id });
         res.status(200).json({
             success: true,
             message: "Mongo deleted successfully",

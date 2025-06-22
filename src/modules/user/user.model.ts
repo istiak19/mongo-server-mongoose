@@ -1,6 +1,7 @@
 import { Model, model, Schema } from "mongoose";
 import { IUser, userMethods } from "./user.interface";
 import bcrypt from "bcryptjs";
+import { Mongo } from "../mongo/mongo.model";
 
 const userSchema = new Schema<IUser, userMethods>({
     name: {
@@ -56,6 +57,13 @@ const userSchema = new Schema<IUser, userMethods>({
 userSchema.method("hashPassword", async function (plainPassword: string) {
     const password = await bcrypt.hash(plainPassword, 10);
     return password;
-})
+});
+
+userSchema.post("findOneAndDelete", async function (doc) {
+  if (doc) {
+    // console.log("Deleted User:", doc);
+    await Mongo.deleteMany({ userID: doc._id });
+  }
+});
 
 export const User = model<IUser, Model<IUser, {}, userMethods>>("user", userSchema);
