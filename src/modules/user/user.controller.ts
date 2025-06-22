@@ -63,3 +63,40 @@ export const registerUser = async (req: Request, res: Response) => {
         });
     }
 };
+
+export const updateUser = async (req: Request, res: Response) => {
+    try {
+        const id = req.params.id;
+        const updateInfo = req.body;
+        const data = await User.findOneAndUpdate({ _id: id }, updateInfo, { new: true })
+        res.status(200).json({
+            success: true,
+            message: 'User updated successfully',
+            data: data,
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: 'Failed to update user',
+            error,
+        });
+    }
+};
+
+export const deleteUser = async (req: Request, res: Response) => {
+    try {
+        const id = req.params.id;
+        const data = await User.deleteOne({ _id: id });
+        res.status(200).json({
+            success: true,
+            message: "User deleted successfully",
+            data,
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: "Failed to delete user",
+            error,
+        });
+    }
+};
