@@ -3,7 +3,7 @@ import { Mongo } from "./mongo.model";
 
 export const getAllMongo = async (req: Request, res: Response) => {
     try {
-        const data = await Mongo.find();
+        const data = await Mongo.find().populate("user", "name email phone");
         res.status(200).json({
             success: true,
             message: "Mango retrieved successfully!",

@@ -62,7 +62,7 @@ userSchema.method("hashPassword", async function (plainPassword: string) {
 userSchema.post("findOneAndDelete", async function (doc) {
   if (doc) {
     // console.log("Deleted User:", doc);
-    await Mongo.deleteMany({ userID: doc._id });
+    await Mongo.deleteMany({ user: doc._id });
   }
 });
 

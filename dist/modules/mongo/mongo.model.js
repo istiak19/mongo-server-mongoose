@@ -1,7 +1,8 @@
-import { model, Schema } from "mongoose";
-import { IMongo } from "./mongo.interface";
-
-const mongoScheme = new Schema<IMongo>({
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Mongo = void 0;
+const mongoose_1 = require("mongoose");
+const mongoScheme = new mongoose_1.Schema({
     name: {
         type: String,
         trim: true,
@@ -36,7 +37,7 @@ const mongoScheme = new Schema<IMongo>({
         enum: ["Summer", "Winter"]
     },
     user: {
-        type: Schema.Types.ObjectId,
+        type: mongoose_1.Schema.Types.ObjectId,
         ref: "user",
         required: true
     }
@@ -44,6 +45,4 @@ const mongoScheme = new Schema<IMongo>({
     versionKey: false,
     timestamps: true
 });
-
-
-export const Mongo = model<IMongo>("mongo", mongoScheme);
+exports.Mongo = (0, mongoose_1.model)("mongo", mongoScheme);

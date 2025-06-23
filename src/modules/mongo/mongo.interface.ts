@@ -8,5 +8,5 @@ export interface IMongo {
     stock: number,
     origin: string,
     session: "Summer" | "Winter",
-    userID: Types.ObjectId
+    user: Types.ObjectId
 }

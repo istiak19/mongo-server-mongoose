@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const mongo_controller_1 = require("./mongo.controller");
+const mongoRouter = (0, express_1.Router)();
+mongoRouter.get("/get-mongo", mongo_controller_1.getAllMongo);
+mongoRouter.get("/get-mongo/:id", mongo_controller_1.getSingleMongo);
+mongoRouter.post("/create-mongo", mongo_controller_1.createMongo);
+mongoRouter.patch("/update-mongo/:id", mongo_controller_1.updateMongo);
+mongoRouter.delete("/delete-mongo/:id", mongo_controller_1.deleteMongo);
+exports.default = mongoRouter;
