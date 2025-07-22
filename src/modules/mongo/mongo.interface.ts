@@ -9,4 +9,4 @@ export interface IMongo {
     origin: string,
     session: "Summer" | "Winter",
     user: Types.ObjectId
-}
+};

@@ -15,7 +15,7 @@ export const getAllMongo = async (req: Request, res: Response) => {
             message: "Failed to retrieve mango",
             error,
         });
-    }
+    };
 };
 
 export const getSingleMongo = async (req: Request, res: Response) => {
